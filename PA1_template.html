@@ -256,6 +256,8 @@ ggplot(fiveMinutesData, aes(x = interval, y = steps, color = &quot;red&quot;)) +
 
 <h2>Imputing missing values</h2>
 
+<p>My strategy for filling in all of the missing values : mean for the same 5-minute interval identifier</p>
+
 <pre><code class="r"># Calculate and report the total number of missing values 
 sapply(activity, function(x) sum(is.na(x)))
 </code></pre>
@@ -264,9 +266,7 @@ sapply(activity, function(x) sum(is.na(x)))
 ##     2304        0        0
 </code></pre>
 
-<pre><code class="r">#Devise a strategy for filling in all of the missing values : 
-# mean for the same 5-minute interval identifier
-activityWithoutNA &lt;- ddply(activity, .(interval), function(df) {
+<pre><code class="r">activityWithoutNA &lt;- ddply(activity, .(interval), function(df) {
         df$steps[is.na(df$steps)] &lt;- mean(df$steps, na.rm=TRUE); 
         return(df)
         })

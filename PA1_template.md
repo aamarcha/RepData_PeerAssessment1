@@ -85,6 +85,7 @@ interval_max_step <- fiveMinutesData[ fiveMinutesData$steps == max(fiveMinutesDa
 The 835  5-minute interval, on average across all the days in the dataset contains the maximum number of steps
 
 ## Imputing missing values
+My strategy for filling in all of the missing values : mean for the same 5-minute interval identifier
 
 ```r
 # Calculate and report the total number of missing values 
@@ -97,8 +98,6 @@ sapply(activity, function(x) sum(is.na(x)))
 ```
 
 ```r
-#Devise a strategy for filling in all of the missing values : 
-# mean for the same 5-minute interval identifier
 activityWithoutNA <- ddply(activity, .(interval), function(df) {
         df$steps[is.na(df$steps)] <- mean(df$steps, na.rm=TRUE); 
         return(df)
